@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitbit Data Visualization</title>
+</head>
+<body>
+    <h1>Fitbit Data Dashboard</h1>
+    <div id="steps-data">Loading steps data...</div>
+    <div id="heart-rate-data">Loading heart rate data...</div>
+    <div id="sleep-data">Loading sleep data...</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function fetchData(endpoint, elementId) {
+            axios.get(endpoint)
+                .then(function (response) {
+                    document.getElementById(elementId).innerText = JSON.stringify(response.data, null, 2);
+                })
+                .catch(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        }
+
+        fetchData('/fetch-steps', 'steps-data');
+        fetchData('/fetch-heart-rate', 'heart-rate-data');
+        fetchData('/fetch-sleep', 'sleep-data');
+    </script>
+</body>
+</html>
